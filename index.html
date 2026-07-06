@@ -135,6 +135,19 @@
     font-size:0.85rem; color:#8a6d1c; background:#fff8e6; border-radius:8px;
     padding:6px 10px; margin-top:6px; display:inline-block;
   }
+  .uebergang{
+    font-style:italic;
+    color:#3f3f46;
+    background:#eef2f7;
+    border-left:3px solid #93a3b8;
+    padding:10px 14px;
+    border-radius:0 8px 8px 0;
+    margin:14px 0 4px;
+  }
+  .uebergang .tag{
+    display:block; font-style:normal; font-size:0.72rem; font-weight:700;
+    letter-spacing:0.04em; text-transform:uppercase; color:#5b6b82; margin-bottom:4px;
+  }
 
   #typeContent{display:none;}
   #typeContent.show{display:block;}
@@ -339,10 +352,14 @@ const TYPES = {
       "„Kurz zur Einordnung: Wie lange sind Sie schon im Schuldienst, und sind Sie verbeamtet?“",
       "„Alles klar, dann kennen Sie das System schon gut.“"
     ],
-    absicherung: [
-      "„Sagen wir mal so: DU und PKV haben Sie sicher längst geregelt. Aber ganz ehrlich – wann haben Sie das zuletzt gegengecheckt?“",
-      "„Was glauben Sie, was es Sie kostet, wenn Sie seit Jahren mit veralteten Konditionen laufen?“"
-    ],
+    absicherung: {
+      grundfrage: [
+        "„Kurz und knapp: Sind DU und PKV bei Ihnen schon abgeschlossen? Und bei wem bzw. wie haben Sie das damals entschieden?“"
+      ],
+      vergleich: "„Wurde das seitdem nochmal mit dem Markt verglichen, oder läuft das einfach unverändert weiter?“",
+      nutzen: "„Der Unterschied bei uns: Wir sind an keinen Versicherer gebunden. Wir schauen mit der spezialisierten Lehrerbrille über den gesamten deutschen Markt – und holen raus, was für Sie tatsächlich am meisten bringt.“",
+      ueberleitung: "„Das andere Thema, das für die meisten Lehrkräfte sogar noch relevanter war: die Pensionssteuerfalle. Sagt Ihnen das schon etwas?“"
+    },
     pension: "„Kennen Sie die exakte Höhe Ihrer Pension? Die meisten nicht. Und mal ehrlich – würden Sie sonst irgendeine Entscheidung ohne Zahlen treffen?“",
     steuer: "„Ab 2058 wird Ihre Pension zu 100 % versteuert. Wissen Sie, was netto übrig bleibt – oder rechnen Sie noch mit Bauchgefühl?“",
     pensionsrechner: "„Mit unserem Pensionsrechner haben Sie in 15 Minuten schwarz auf weiß, wo Sie stehen. Volle Kontrolle über Ihre Zahlen, kein Rätselraten mehr.“",
@@ -361,10 +378,14 @@ const TYPES = {
       "„Erzählen Sie doch mal – wie sind Sie eigentlich Lehrer/in geworden, und was gefällt Ihnen daran am meisten?“",
       "„Schön zu hören! Sind Sie inzwischen verbeamtet?“"
     ],
-    absicherung: [
-      "„Sie haben sich sicher schon um DU und PKV gekümmert, oder? Stellen Sie sich mal vor, Sie müssten sich darüber nie wieder Gedanken machen, weil wirklich alles zu Ihnen passt.“",
-      "„Wie würde es sich anfühlen, das einfach mal komplett vom Tisch zu haben?“"
-    ],
+    absicherung: {
+      grundfrage: [
+        "„Mal ganz grundsätzlich gefragt: Haben Sie DU und PKV schon geregelt? Und wie sind Sie das damals angegangen, bei wem sind Sie da gelandet?“"
+      ],
+      vergleich: "„Und ist das nochmal mit dem restlichen Markt verglichen worden, oder ist das eher so gewachsen?“",
+      nutzen: "„Das Schöne bei uns: Wir hängen an keinem einzelnen Anbieter, sondern schauen mit unserer Lehrerbrille auf den kompletten deutschen Markt – so finden wir wirklich das, was am besten zu Ihnen passt.“",
+      ueberleitung: "„Und das Thema, das viele Ihrer Kolleginnen und Kollegen sogar noch spannender fanden, ist die Pensionssteuerfalle – haben Sie davon schon mal gehört?“"
+    },
     pension: "„Wissen Sie eigentlich, wie Ihre Pension später konkret aussieht? Stellen Sie sich vor, Sie könnten heute schon sehen, welches Leben Ihnen das später ermöglicht.“",
     steuer: "„Ab 2058 wird's spannend: Die Pension wird komplett versteuert. Viele sind überrascht, wie viel von ihrem Traum-Ruhestand-Bild dann tatsächlich übrig bleibt.“",
     pensionsrechner: "„Mit unserem Pensionsrechner holen wir uns dieses Bild einfach mal ganz konkret. Wie großartig fühlt sich das an, genau zu wissen, was für Sie möglich ist?“",
@@ -383,10 +404,14 @@ const TYPES = {
       "„Darf ich fragen, wie lange Sie schon im Schuldienst sind und an welcher Schulart Sie unterrichten?“",
       "„Und – macht Ihnen der Beruf aktuell Freude?“"
     ],
-    absicherung: [
-      "„Ganz in Ruhe gefragt: Haben Sie DU und PKV schon geregelt? Fühlen Sie sich dort auch heute noch gut aufgehoben?“",
-      "„Wann wurde das zuletzt überprüft, ob es noch zu Ihrer Situation passt?“"
-    ],
+    absicherung: {
+      grundfrage: [
+        "„Darf ich ganz in Ruhe fragen: Sind DU und PKV bei Ihnen schon geregelt? Und wie sind Sie das damals angegangen, bei wem haben Sie sich da entschieden?“"
+      ],
+      vergleich: "„Wurde das in der Zwischenzeit nochmal verglichen, oder läuft der Vertrag seitdem einfach unverändert weiter?“",
+      nutzen: "„Wir sind dabei an keinen einzelnen Anbieter gebunden, sondern schauen mit unserer spezialisierten Lehrerbrille in Ruhe über den gesamten deutschen Markt – damit Sie sicher sein können, dass wirklich alles zu Ihrer Situation passt.“",
+      ueberleitung: "„Ein weiteres Thema, das vielen Kolleginnen und Kollegen wichtig war, ist die Pensionssteuerfalle – haben Sie davon schon gehört?“"
+    },
     pension: "„Wissen Sie, viele Kolleginnen und Kollegen wissen gar nicht genau, wie ihre Pension später aussieht. Das kann ein ungutes Gefühl sein, gerade wenn man an die Familie denkt.“",
     steuer: "„Ab 2058 wird die Pension voll versteuert. Das überrascht viele – und plötzlich reicht das, was man sich vorgestellt hat, vielleicht nicht mehr ganz.“",
     pensionsrechner: "„Mit dem Pensionsrechner schauen wir uns das gemeinsam und in aller Ruhe an – Schritt für Schritt, damit Sie ein sicheres Gefühl haben, wo Sie stehen.“",
@@ -405,10 +430,14 @@ const TYPES = {
       "„Zur Einordnung: Wie viele Dienstjahre haben Sie bereits, und an welcher Schulform unterrichten Sie?“",
       "„Sind Sie bereits verbeamtet, und falls ja, auf Lebenszeit?“"
     ],
-    absicherung: [
-      "„Zur Einordnung: DU und PKV sind vermutlich bereits abgeschlossen. Darf ich fragen, wann die Konditionen zuletzt geprüft wurden?“",
-      "„Wie sicher sind Sie sich, dass die damalige Entscheidung noch mit dem aktuellen Marktstandard vergleichbar ist?“"
-    ],
+    absicherung: {
+      grundfrage: [
+        "„Zur Einordnung: Sind DU und PKV bei Ihnen bereits abgeschlossen? Und nach welchen Kriterien haben Sie sich damals für den jeweiligen Anbieter entschieden?“"
+      ],
+      vergleich: "„Wurden die Konditionen seitdem einmal systematisch mit dem Markt verglichen?“",
+      nutzen: "„Der Unterschied: Wir sind nicht an einen Versicherer gebunden, sondern vergleichen mit der spezialisierten Lehrerbrille systematisch den gesamten deutschen Markt – mit konkreten Zahlen statt Vermutungen.“",
+      ueberleitung: "„Ein weiterer Punkt, der bei der Analyse regelmäßig relevant ist: die Pensionssteuerfalle. War Ihnen das Thema bereits bekannt?“"
+    },
     pension: "„Kennen Sie die exakte Höhe Ihrer voraussichtlichen Pension – nicht die Faustregel, sondern die konkrete Zahl? Die wenigsten Lehrkräfte kennen ihre tatsächliche Versorgungslücke.“",
     steuer: "„Ab 2058 greift die volle Besteuerung der Pension. War Ihnen bekannt, in welcher Größenordnung sich die Netto-Differenz dadurch bewegt?“",
     pensionsrechner: "„Unser Pensionsrechner liefert eine dokumentierte Berechnung Ihrer voraussichtlichen Versorgung inklusive möglicher Lücken – Zahlen statt Vermutungen.“",
@@ -444,14 +473,18 @@ function renderType(key){
   t.qualifizierung.forEach(q => html += `<p class="quote">${q}</p>`);
 
   html += `<h3><span class="step-badge">3</span> Bisherige Absicherung (DU / PKV)</h3>`;
-  html += `<div class="pnl problem"><span class="label">Problem</span>`;
-  t.absicherung.forEach(q => html += `<p>${q}</p>`);
+  html += `<div class="pnl problem"><span class="label">Problem: Grundfrage</span>`;
+  t.absicherung.grundfrage.forEach(q => html += `<p>${q}</p>`);
   html += `</div>`;
   html += schweigenHint();
+  html += `<div class="pnl problem"><span class="label">Problem: Verglichen?</span><p>${t.absicherung.vergleich}</p></div>`;
+  html += schweigenHint();
+  html += `<div class="pnl nutzen"><span class="label">Nutzen</span><p>${t.absicherung.nutzen}</p></div>`;
   html += `<span class="hebel">🎯 Hebel PKV: Beihilfe-Konformität · Hebel DU: Dienstunfähigkeit</span>`;
   html += `<p style="margin-top:10px; color:var(--muted); font-size:0.85rem;">Hinweis: Wir sind Zweitmeinung – keine Konkurrenz zu bestehenden Verträgen.</p>`;
+  html += `<div class="uebergang"><span class="tag">Überleitung</span>${t.absicherung.ueberleitung}</div>`;
 
-  html += `<h3><span class="step-badge">4</span> Überleitung Pension</h3>`;
+  html += `<h3><span class="step-badge">4</span> Pension</h3>`;
   html += `<div class="pnl problem"><span class="label">Problem</span><p>${t.pension}</p></div>`;
   html += `<span class="hebel">🎯 Hebel: A13 / Pensionierung</span>`;
 
