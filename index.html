@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Telefonleitfaden Lehrkräfte – Farbtyp-Edition</title>
+<style>
+  :root{
+    --bg:#f4f5f7;
+    --card:#ffffff;
+    --text:#1f2430;
+    --muted:#6b7280;
+    --border:#e3e5ea;
+    --accent:#2f3b52;
+
+    --rot:#c0392b; --rot-soft:#fbeae8;
+    --blau:#2f6fbe; --blau-soft:#e8f0fb;
+    --gruen:#2e9e5b; --gruen-soft:#e7f7ee;
+    --gelb:#c99a12; --gelb-soft:#fbf3dd;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    line-height:1.55;
+  }
+  header{
+    background:var(--accent);
+    color:#fff;
+    padding:22px 20px;
+    position:sticky;
+    top:0;
+    z-index:50;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:10px;
+  }
+  header h1{
+    margin:0;
+    font-size:1.25rem;
+  }
+  header p{
+    margin:2px 0 0;
+    font-size:0.85rem;
+    opacity:0.8;
+  }
+  #resetBtn{
+    display:none;
+    background:#ffffff22;
+    border:1px solid #ffffff55;
+    color:#fff;
+    padding:8px 14px;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:0.85rem;
+  }
+  #resetBtn:hover{background:#ffffff33;}
+  #resetBtn.show{display:inline-block;}
+
+  main{
+    max-width:920px;
+    margin:0 auto;
+    padding:20px 16px 80px;
+  }
+  .card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:20px 22px;
+    margin-bottom:18px;
+    box-shadow:0 1px 3px rgba(0,0,0,0.04);
+  }
+  .card h2{
+    margin-top:0;
+    font-size:1.15rem;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .step-badge{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:26px;height:26px;
+    border-radius:50%;
+    background:var(--accent);
+    color:#fff;
+    font-size:0.8rem;
+    flex:none;
+  }
+  .quote{
+    background:#f8f9fb;
+    border-left:3px solid #c9cedb;
+    padding:10px 14px;
+    border-radius:0 8px 8px 0;
+    margin:8px 0;
+    font-style:italic;
+  }
+  .hint{
+    background:#fff8e6;
+    border:1px dashed #e8cf87;
+    border-radius:10px;
+    padding:10px 14px;
+    font-size:0.92rem;
+    margin:10px 0;
+  }
+  .hint b{color:#8a6d1c;}
+
+  /* Farbtyp-Auswahl */
+  .type-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:14px;
+    margin-top:14px;
+  }
+  @media (min-width:640px){
+    .type-grid{grid-template-columns:repeat(4,1fr);}
+  }
+  .type-btn{
+    border:none;
+    border-radius:12px;
+    padding:16px 10px;
+    cursor:pointer;
+    color:#fff;
+    text-align:center;
+    font-weight:600;
+    font-size:1rem;
+    transition:transform .12s ease, box-shadow .12s ease;
+    box-shadow:0 2px 6px rgba(0,0,0,0.12);
+  }
+  .type-btn small{
+    display:block;
+    font-weight:400;
+    font-size:0.75rem;
+    margin-top:4px;
+    opacity:0.9;
+  }
+  .type-btn:hover{transform:translateY(-2px); box-shadow:0 6px 14px rgba(0,0,0,0.18);}
+  .type-btn.active{outline:3px solid var(--accent); outline-offset:2px;}
+  .type-btn.rot{background:var(--rot);}
+  .type-btn.blau{background:var(--blau);}
+  .type-btn.gruen{background:var(--gruen);}
+  .type-btn.gelb{background:var(--gelb); color:#3a2c00;}
+
+  .signal-list{
+    margin:10px 0 0;
+    padding-left:18px;
+    font-size:0.88rem;
+    color:var(--muted);
+  }
+
+  /* PNL Badges */
+  .pnl{
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:12px 14px;
+    margin:10px 0;
+    background:#fafbfc;
+  }
+  .pnl .label{
+    display:inline-block;
+    font-size:0.72rem;
+    font-weight:700;
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+    padding:2px 9px;
+    border-radius:20px;
+    margin-bottom:6px;
+    color:#fff;
+  }
+  .pnl.problem .label{background:#5b6472;}
+  .pnl.nutzen .label{background:#3f7ea6;}
+  .pnl.loesung .label{background:#3c8a5c;}
+
+  #typeContent{display:none;}
+  #typeContent.show{display:block;}
+
+  .type-banner{
+    border-radius:12px;
+    padding:14px 18px;
+    color:#fff;
+    margin-bottom:16px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    flex-wrap:wrap;
+  }
+  .type-banner .trait{font-weight:400; font-size:0.9rem; opacity:0.9;}
+  .type-banner.rot{background:var(--rot);}
+  .type-banner.blau{background:var(--blau);}
+  .type-banner.gruen{background:var(--gruen);}
+  .type-banner.gelb{background:var(--gelb); color:#3a2c00;}
+
+  .ton-hinweis{
+    font-size:0.9rem;
+    background:#eef1f6;
+    border-radius:8px;
+    padding:8px 12px;
+    margin-bottom:14px;
+  }
+
+  ul.merk{list-style:none; padding:0; margin:0;}
+  ul.merk li{padding:4px 0;}
+  ul.merk li:before{content:"✅ "; }
+
+  .hilfsfragen li{margin-bottom:4px;}
+
+  footer{
+    text-align:center;
+    color:var(--muted);
+    font-size:0.8rem;
+    padding:20px;
+  }
+
+  a.anchor-link{color:inherit;}
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>📞 Telefonleitfaden – Lehrkräfte</h1>
+    <p>Horbach Lehrerberatung · Farbtyp-Edition (DISG)</p>
+  </div>
+  <button id="resetBtn" onclick="resetType()">↩ Farbtyp zurücksetzen</button>
+</header>
+
+<main>
+
+  <!-- SCHRITT 1: EINSTIEG -->
+  <div class="card">
+    <h2><span class="step-badge">1</span> Einstieg</h2>
+    <p class="quote">„Hallo, hier spricht [Name] von HORBACH Lehrerberatung. Spreche ich mit (Name)?“</p>
+    <p class="quote">„Perfekt, Grüße dich erstmal. Wie gesagt [Name] von der HORBACH Lehrerberatung – sagt dir das noch etwas?“</p>
+    <p><b>Falls Nein:</b></p>
+    <p class="quote">„Kein Problem. Wir sind eine der größten Beratungsstellen für Lehrkräfte in Deutschland. Du hattest dich damals bei einer unserer Aktionen für Lehrkräfte gemeldet – dabei vergeben wir regelmäßig über mehrere Wochen kostenfreie Beratungsgespräche.“</p>
+    <p class="quote">„Mein Anruf dient heute einfach dazu, herauszufinden, ob aktuell überhaupt Beratungsbedarf besteht – und wenn ja, welcher konkret.“</p>
+  </div>
+
+  <!-- SCHRITT 2: KENNENLERNEN / FIT-CHECK -->
+  <div class="card">
+    <h2><span class="step-badge">2</span> Kennenlernen & Fit-Check</h2>
+    <p>Ziel: prüfen, ob Horbach und die Lehrkraft überhaupt zueinander passen – und in dieser Phase erste Signale für den Farbtyp sammeln.</p>
+    <p class="quote">„Darf ich fragen, wie lange du schon im Schuldienst bist?“</p>
+    <p class="quote">„An welcher Schulart unterrichtest du?“</p>
+    <p class="quote">„Bist du schon aus dem Vorbereitungsdienst / Referendariat raus?“</p>
+    <p class="quote">„Bist du bereits verbeamtet – und wenn ja, auf Lebenszeit?“</p>
+    <p>→ Bei positiver Antwort ruhig ein ehrliches Lob einbauen, z. B.: <span class="quote">„Verbeamtung auf Lebenszeit – das ist schon eine richtig gute Ausgangslage, herzlichen Glückwunsch dazu!“</span></p>
+    <p class="quote">„Macht dir der Beruf aktuell Spaß? Was gefällt dir besonders daran?“</p>
+
+    <div class="hint">
+      <b>🎧 Jetzt auf den Farbtyp achten:</b> Wie spricht die Person? Schnell, bestimmt, unterbricht sie dich? (→ Rot) Erzählt sie viel, emotional, mit Anekdoten? (→ Gelb) Ruhig, zurückhaltend, freundlich-zustimmend? (→ Grün) Sachlich, fragt nach Details/Zahlen? (→ Blau) Eine kurze Übersicht findest du unten bei der Auswahl.
+    </div>
+  </div>
+
+  <!-- PNL Erklärbox -->
+  <div class="card">
+    <h2>🧭 Kurz erklärt: Problem – Nutzen – Lösung (PNL)</h2>
+    <p>Ab jetzt arbeitet der Leitfaden konsequent nach dem PNL-Prinzip:</p>
+    <ul class="merk">
+      <li><b>Problem:</b> Du stellst eine offene Frage, die die Lehrkraft dazu bringt, das Problem <u>selbst</u> zu erkennen und auszusprechen. Du lieferst die Lösung nicht vor, sondern lässt sie entdecken.</li>
+      <li><b>Nutzen:</b> Erst wenn das Problem ausgesprochen ist, zeigst du auf, was es der Person bringt, es zu lösen bzw. Klarheit zu haben.</li>
+      <li><b>Lösung:</b> Erst am Ende kommt das konkrete Angebot – Pensionsrechner, Beratungsgespräch, Termin.</li>
+    </ul>
+    <p style="margin-bottom:0;"><i>Merke: Je mehr die Lehrkraft das Problem selbst formuliert, desto weniger musst du überzeugen.</i></p>
+  </div>
+
+  <!-- SCHRITT 3: FARBTYP AUSWAHL -->
+  <div class="card">
+    <h2><span class="step-badge">3</span> Farbtyp erkannt? Jetzt auswählen</h2>
+    <p>Tippe auf den Farbtyp, den du gerade am Telefon vor dir hast – der passende Leitfaden für die restlichen Themen (Absicherung, Pension, Förderungen, Termin) erscheint direkt darunter.</p>
+
+    <div class="type-grid">
+      <button class="type-btn rot" onclick="selectType('rot')">🔴 Rot<small>Dominant & direkt</small></button>
+      <button class="type-btn gelb" onclick="selectType('gelb')">🟡 Gelb<small>Kontaktfreudig & emotional</small></button>
+      <button class="type-btn gruen" onclick="selectType('gruen')">🟢 Grün<small>Ruhig & sicherheitsorientiert</small></button>
+      <button class="type-btn blau" onclick="selectType('blau')">🔵 Blau<small>Analytisch & faktenorientiert</small></button>
+    </div>
+
+    <ul class="signal-list">
+      <li><b>Rot:</b> spricht schnell/bestimmt, unterbricht, will schnell zum Punkt, wirkt ungeduldig bei Small Talk.</li>
+      <li><b>Gelb:</b> redet viel, erzählt Geschichten, lacht, begeistert sich schnell, schweift ab.</li>
+      <li><b>Grün:</b> ruhig, freundlich, zurückhaltend, stimmt oft zu, braucht Zeit für Entscheidungen.</li>
+      <li><b>Blau:</b> sachlich, stellt Detailfragen, will Zahlen/Fakten, wenig Emotion, eher kritisch-prüfend.</li>
+    </ul>
+  </div>
+
+  <!-- DYNAMISCHER FARBTYP-INHALT -->
+  <div id="typeContent"></div>
+
+  <!-- MERKSÄTZE -->
+  <div class="card">
+    <h2>📌 Wichtige Merksätze fürs Gespräch</h2>
+    <ul class="merk">
+      <li>Viele Fragen stellen</li>
+      <li>Interesse zeigen</li>
+      <li>Den Kunden selbst die Probleme erkennen lassen</li>
+      <li>Erst Problem → dann Nutzen → dann Lösung</li>
+      <li>Nicht zu früh beraten</li>
+      <li>Nicht zu früh Produkte nennen</li>
+      <li>Gespräch individuell auf den Farbtyp abstimmen</li>
+    </ul>
+  </div>
+
+  <!-- HILFSFRAGEN -->
+  <div class="card">
+    <h2>🛟 Hilfsfragen (nur verwenden, wenn sie zur Situation passen)</h2>
+    <ul class="hilfsfragen">
+      <li>„Warum ist dir das wichtig?“</li>
+      <li>„Wie würdest du das aktuell einschätzen?“</li>
+      <li>„Was glaubst du passiert, wenn man sich darum nie kümmert?“</li>
+      <li>„Wann wäre der richtige Zeitpunkt, das herauszufinden?“</li>
+      <li>„Was würde es dir bringen, wenn du heute Klarheit hättest?“</li>
+      <li>„Wie sicher bist du dir, dass du aktuell alle Förderungen nutzt?“</li>
+      <li>„Was würde es für dich bedeuten, mehrere Tausend Euro an Steuern oder Förderungen ungenutzt zu lassen?“</li>
+      <li>„Wäre es sinnvoll, das einmal konkret prüfen zu lassen?“</li>
+    </ul>
+  </div>
+
+</main>
+
+<footer>Horbach Lehrerberatung · interner Telefonleitfaden · nicht für externe Weitergabe</footer>
+
+<script>
+const TYPES = {
+  rot: {
+    label: "Rot",
+    trait: "Dominant & ergebnisorientiert",
+    css: "rot",
+    tonHinweis: "Rote Lehrkräfte wollen keine Umwege. Bleib faktenbasiert, komm schnell zum Punkt, biete klare Optionen statt offener Fragen an. Zeig Respekt vor ihrer Zeit – keine langen Vorreden.",
+    absicherung: {
+      problem: "„Mal ehrlich: BU und private Krankenversicherung hast du sicher schon geregelt – aber wann hast du das zuletzt mit aktuellen Zahlen gegengecheckt, statt es nur abzuschließen und abzuheften?“",
+      nutzen: "„Ein Vertrag, der nicht mehr zur aktuellen Besoldungsstufe oder Lebenssituation passt, kostet dich bares Geld – durch Unterversorgung oder überhöhte Beiträge.“",
+      loesung: "„Das gleichen wir im Gespräch in wenigen Minuten schwarz auf weiß ab.“"
+    },
+    pension: {
+      problem: "„Kennst du deine spätere Pension aufs Netto genau – oder ist das aktuell eher eine Schätzung? Und falls du sie erst mit 60 schwarz auf weiß siehst: Bleibt dann noch Zeit, etwas zu ändern?“",
+      nutzen: "„Wer's früh weiß, hat noch Stellschrauben. Wer's spät erfährt, kann nur noch zuschauen – und das kostet am Ende reales Geld.“",
+      loesung: "„Unser Pensionsrechner liefert dir die Zahl – konkret, nachvollziehbar, in einem Termin.“",
+      extra: "„Noch ein Punkt, den die wenigsten auf dem Schirm haben: Ab 2058 wird die Pension zu 100 % versteuert. Netto bleibt oft deutlich weniger übrig, als man denkt. Wusstest du das?“"
+    },
+    foerderung: {
+      problem: "„Nutzt du aktuell wirklich schon alle Förderungen und steuerlichen Vorteile, die dir als Lehrkraft zustehen – oder bist du dir da nicht sicher?“",
+      nutzen: "„Wer das nicht geprüft hat, lässt oft mehrere Tausend Euro über die Jahre einfach liegen.“",
+      loesung: "„Das schauen wir uns im Termin konkret an – schnell und klar, was für dich drin ist.“"
+    },
+    termin: "„Zwei Optionen: [Termin A] oder [Termin B] – was passt dir besser? Läuft per Teams, 30–45 Minuten, danach weißt du schwarz auf weiß, wo du stehst.“",
+    abschluss: "„Kurz zusammengefasst: Pension, Steuerfalle, Förderungen, Optimierung – konkret und mit Zahlen. Passt dir [Termin]?“"
+  },
+
+  gelb: {
+    label: "Gelb",
+    trait: "Kontaktfreudig & emotional",
+    css: "gelb",
+    tonHinweis: "Gelbe Lehrkräfte lieben Geschichten, Bilder und Begeisterung. Nimm dir Zeit für Beziehung, arbeite mit Vergleichen, zeig Emotion – aber verlier den roten Faden nicht.",
+    absicherung: {
+      problem: "„Weißt du, ich hab neulich mit einer Kollegin von dir telefoniert – die dachte auch 'passt schon irgendwie', bis sie gemerkt hat, dass ihr Vertrag von vor zehn Jahren gar nicht mehr zu ihrem Leben heute passt. Kennst du das Gefühl, dass man solche Themen einmal abgehakt und dann nie wieder angeschaut hat?“",
+      nutzen: "„Stell dir vor, du hast einfach das gute Gefühl: Ich bin rundum abgesichert – ganz ohne dieses kleine Fragezeichen im Hinterkopf.“",
+      loesung: "„Genau das schauen wir uns gemeinsam an – ganz entspannt, ohne Druck, in einem Gespräch.“"
+    },
+    pension: {
+      problem: "„Stell dir mal vor: Du stehst kurz vorm Ruhestand, freust dich auf Reisen, Familie, endlich Zeit für dich – und dann kommt der erste Bescheid und es ist plötzlich viel weniger, als du gedacht hast. Wie fühlt sich das wohl an?“",
+      nutzen: "„Wie schön wäre es stattdessen, das jetzt schon zu wissen und ganz entspannt und mit einem guten Gefühl auf die Zukunft zu schauen?“",
+      loesung: "„Unser Pensionsrechner zeigt dir genau das – und danach kannst du dich einfach zurücklehnen, weil du weißt, woran du bist.“",
+      extra: "„Und übrigens: Ab 2058 wird die Pension zu 100 % versteuert – das überrascht wirklich fast jede Lehrkraft, mit der ich spreche. Hattest du davon schon gehört?“"
+    },
+    foerderung: {
+      problem: "„Weißt du, was mich immer wieder erstaunt? Wie viele tolle Förderungen und Steuervorteile es für euch Lehrkräfte gibt – und wie wenige davon wissen. Hast du dich damit schon mal beschäftigt?“",
+      nutzen: "„Stell dir vor, du holst dir einfach das, was dir sowieso zusteht – Jahr für Jahr, ganz ohne Aufwand.“",
+      loesung: "„Das schauen wir uns im Termin gemeinsam an, ganz locker.“"
+    },
+    termin: "„Lass uns einfach mal in Ruhe quatschen, per Video – du brauchst nur einen Laptop und Teams. Passt dir eher [Termin A] oder [Termin B]?“",
+    abschluss: "„Ich freu mich schon, dir das alles im Termin zu zeigen – Pension, Steuerfalle, Förderungen, einmal schön aufbereitet für dich.“"
+  },
+
+  gruen: {
+    label: "Grün",
+    trait: "Ruhig & sicherheitsorientiert",
+    css: "gruen",
+    tonHinweis: "Grüne Lehrkräfte brauchen Sicherheit, Ruhe und keinen Druck. Betone Unverbindlichkeit, gib Zeit, wirke geduldig und vertrauensbildend.",
+    absicherung: {
+      problem: "„Darf ich dich das mal fragen – fühlst du dich bei deiner BU und deiner privaten Krankenversicherung heute noch richtig gut aufgehoben? Wurde da in letzter Zeit mal in Ruhe draufgeschaut, ob sich etwas verändert hat?“",
+      nutzen: "„Es geht gar nicht darum, unbedingt etwas zu ändern – sondern einfach um das gute Gefühl, dass wirklich alles zu deiner aktuellen Situation passt.“",
+      loesung: "„Das schauen wir uns gerne ganz in Ruhe und unverbindlich gemeinsam an, ohne dass du dich für irgendwas entscheiden musst.“"
+    },
+    pension: {
+      problem: "„Weißt du eigentlich schon genau, was dich später bei der Pension erwartet – oder ist das für dich noch ein Thema, das ein bisschen im Nebel liegt?“",
+      nutzen: "„Viele Kolleginnen und Kollegen erzählen mir, dass es ihnen richtig guttut, einfach Klarheit zu haben und zu wissen, dass sie gut aufgestellt sind.“",
+      loesung: "„Genau dafür ist unser Pensionsrechner da – ganz in Ruhe, unverbindlich, einfach damit du weißt, woran du bist.“",
+      extra: "„Ein Punkt noch, ganz sachlich: Ab 2058 wird die Pension zu 100 % versteuert. Das wissen viele nicht – deshalb lohnt es sich, das einmal in Ruhe anzuschauen. War dir das schon bekannt?“"
+    },
+    foerderung: {
+      problem: "„Bist du dir eigentlich sicher, dass du aktuell schon alle Förderungen und steuerlichen Vorteile nutzt, die dir zustehen?“",
+      nutzen: "„Es wäre doch schade, wenn dir über die Jahre unbemerkt Geld entgeht, das eigentlich ganz sicher und ohne Risiko für dich vorgesehen ist.“",
+      loesung: "„Auch das schauen wir uns in aller Ruhe gemeinsam an – ganz ohne Verpflichtung.“"
+    },
+    termin: "„Ganz unverbindlich und kostenfrei per Video – du entscheidest danach in aller Ruhe, was für dich passt. Wann hättest du dafür Zeit, [Termin A] oder lieber [Termin B]?“",
+    abschluss: "„Du bekommst am Ende einfach Klarheit und Sicherheit – ganz ohne Druck, ganz in deinem Tempo.“"
+  },
+
+  blau: {
+    label: "Blau",
+    trait: "Analytisch & faktenorientiert",
+    css: "blau",
+    tonHinweis: "Blaue Lehrkräfte wollen Fakten, Zahlen und Nachvollziehbarkeit. Keine Übertreibungen, keine reine Emotion – arbeite mit konkreten Werten und Quellen.",
+    absicherung: {
+      problem: "„Wann wurden deine BU- und PKV-Verträge zuletzt mit aktuellen Zahlen – Besoldungsstufe, Beitragsentwicklung – konkret überprüft?“",
+      nutzen: "„Ohne regelmäßigen Abgleich entstehen häufig stille Lücken zwischen der vereinbarten und der tatsächlich benötigten Absicherung – das lässt sich exakt berechnen.“",
+      loesung: "„Im Gespräch legen wir deine bestehenden Verträge und die aktuellen Zahlen nebeneinander und prüfen das konkret, Punkt für Punkt.“"
+    },
+    pension: {
+      problem: "„Kennst du deine voraussichtliche Pension inklusive der genauen Berechnungsgrundlage – oder ist das aktuell eher eine grobe Schätzung?“",
+      nutzen: "„Nur mit belastbaren Zahlen lässt sich rechtzeitig gegensteuern. Eine Lücke, die man erst mit 60 entdeckt, lässt sich rechnerisch kaum noch schließen.“",
+      loesung: "„Unser Pensionsrechner erstellt dir eine konkrete, nachvollziehbare Berechnung inklusive aller Annahmen.“",
+      extra: "„Ein Fakt dazu: Nach dem Alterseinkünftegesetz wird die Pension ab 2058 zu 100 % versteuert. Das reduziert den Nettobetrag oft spürbar gegenüber der Bruttoannahme. War dir diese Zahl schon bekannt?“"
+    },
+    foerderung: {
+      problem: "„Hast du konkret geprüft, welche Förderungen und steuerlichen Vorteile dir als Lehrkraft aktuell zur Verfügung stehen – mit Zahlen belegt?“",
+      nutzen: "„Ungenutzte Förderungen summieren sich über die Jahre auf einen nachweisbaren, oft vierstelligen Betrag.“",
+      loesung: "„Das rechnen wir im Termin konkret durch, damit du eine belastbare Grundlage hast.“"
+    },
+    termin: "„Der Termin läuft strukturiert per Teams ab, du bekommst im Anschluss die Berechnungen schriftlich. Passt dir eher [Termin A] oder [Termin B]?“",
+    abschluss: "„Zusammengefasst erhältst du eine konkrete, belegte Berechnung zu Pension, Steuerlast, Förderungen und Optimierungsmöglichkeiten.“"
+  }
+};
+
+function pnlBlock(label, cls, text){
+  return `<div class="pnl ${cls}"><span class="label">${label}</span><p style="margin:0;">${text}</p></div>`;
+}
+
+function renderType(key){
+  const t = TYPES[key];
+  let html = `<div class="type-banner ${t.css}"><span style="font-size:1.4rem;">${t.label === 'Rot' ? '🔴' : t.label === 'Gelb' ? '🟡' : t.label === 'Grün' ? '🟢' : '🔵'}</span><div><div style="font-weight:700;">${t.label}-Leitfaden</div><div class="trait">${t.trait}</div></div></div>`;
+
+  html += `<div class="ton-hinweis">🎯 <b>Ansprache-Hinweis:</b> ${t.tonHinweis}</div>`;
+
+  html += `<div class="card"><h2><span class="step-badge">4</span> Bisherige Absicherung</h2>`;
+  html += pnlBlock('Problem','problem', t.absicherung.problem);
+  html += pnlBlock('Nutzen','nutzen', t.absicherung.nutzen);
+  html += pnlBlock('Lösung','loesung', t.absicherung.loesung);
+  html += `<p style="margin-top:10px; color:var(--muted); font-size:0.85rem;">Hinweis: Wir sind Zweitmeinung / Ergänzung – keine Konkurrenz zu bestehenden Verträgen.</p>`;
+  html += `</div>`;
+
+  html += `<div class="card"><h2><span class="step-badge">5</span> Pension & Pensionssteuerfalle</h2>`;
+  html += pnlBlock('Problem','problem', t.pension.problem);
+  html += pnlBlock('Nutzen','nutzen', t.pension.nutzen);
+  html += pnlBlock('Lösung','loesung', t.pension.loesung);
+  html += `<div class="hint"><b>➕ Steuerfalle ansprechen:</b> ${t.pension.extra}</div>`;
+  html += `</div>`;
+
+  html += `<div class="card"><h2><span class="step-badge">6</span> Förderungen, Zulagen & Steuervorteile</h2>`;
+  html += pnlBlock('Problem','problem', t.foerderung.problem);
+  html += pnlBlock('Nutzen','nutzen', t.foerderung.nutzen);
+  html += pnlBlock('Lösung','loesung', t.foerderung.loesung);
+  html += `</div>`;
+
+  html += `<div class="card"><h2><span class="step-badge">7</span> Terminvereinbarung</h2>`;
+  html += `<p class="quote">${t.termin}</p>`;
+  html += `</div>`;
+
+  html += `<div class="card"><h2><span class="step-badge">8</span> Abschluss-Zusammenfassung</h2>`;
+  html += `<ul class="merk">
+      <li>Deine voraussichtliche Pension</li>
+      <li>Mögliche Versorgungslücken</li>
+      <li>Steuerliche Auswirkungen im Ruhestand</li>
+      <li>Förderungen und Zulagen für Lehrkräfte</li>
+      <li>Mögliche Steuervorteile</li>
+      <li>Ob aktuell Förderungen oder Vorteile ungenutzt bleiben</li>
+      <li>Möglichkeiten zur Optimierung deiner Altersvorsorge</li>
+  </ul>`;
+  html += `<p class="quote">${t.abschluss}</p>`;
+  html += `</div>`;
+
+  return html;
+}
+
+function selectType(key){
+  document.getElementById('typeContent').innerHTML = renderType(key);
+  document.getElementById('typeContent').classList.add('show');
+
+  document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector('.type-btn.' + key).classList.add('active');
+
+  document.getElementById('resetBtn').classList.add('show');
+
+  document.getElementById('typeContent').scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+function resetType(){
+  document.getElementById('typeContent').classList.remove('show');
+  document.getElementById('typeContent').innerHTML = '';
+  document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('resetBtn').classList.remove('show');
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+</script>
+
+</body>
+</html>
