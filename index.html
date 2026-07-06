@@ -268,6 +268,22 @@
   </div>
 
   <div class="card">
+    <h2>🗣️ Analogien & Vertrauens-Sätze</h2>
+    <p style="color:var(--muted); font-size:0.9rem;">Zum Nachschlagen – diese Sätze zeigen dem Kunden, dass Sie das Gespräch schon oft geführt haben und die Materie beherrschen.</p>
+
+    <h3 style="margin-top:0;">Die Schwimmbecken-Analogie (Pension)</h3>
+    <p class="quote">„Viele wissen gar nicht, wie ihre Pension später ausfallen wird. Ich vergleiche das gerne mit einem Schwimmbecken: Sie würden ja auch nicht hineinspringen, wenn Sie nicht wissen, wie tief das Wasser ist, oder? Genau deshalb haben wir diesen Pensionsrechner entwickelt.“</p>
+    <p class="quote">„Nach der Berechnung wissen Sie genau, wie voll Ihr Schwimmbecken in Zukunft sein wird – und ob wir es noch auffüllen müssen, oder ob im besten Fall schon alles passt und wir einen mentalen Grünhaken dahinter machen können.“</p>
+
+    <h3>Weitere Vorschläge, um Ihre Erfahrung zu zeigen</h3>
+    <p style="color:var(--muted); font-size:0.85rem;">Das sind Vorschläge von mir, keine bestehenden Sätze aus deinem Leitfaden – nimm mit, was zu dir passt.</p>
+    <p class="quote">„Das erlebe ich in Gesprächen mit Lehrkräften immer wieder – deshalb frage ich da gezielt nach.“</p>
+    <p class="quote">„Genau deshalb haben wir uns auf Lehrkräfte und Beamte spezialisiert – die Fallstricke sind hier ganz andere als in der freien Wirtschaft.“</p>
+    <p class="quote">„Das ist einer der Punkte, die uns in über 40 Jahren Lehrerberatung immer wieder begegnen.“</p>
+    <p class="quote">„Ohne die Zahlen zu kennen, ist das ein bisschen wie Autofahren ohne Navi: Sie kommen vielleicht an, aber sicher nicht auf dem kürzesten Weg.“</p>
+  </div>
+
+  <div class="card">
     <h2>🛡️ Einwandbehandlung</h2>
     <p style="color:var(--muted); font-size:0.9rem;">Was der Kunde sagt vs. was er wirklich meint – Einwände sind Kaufsignale, wer kein Interesse hat, diskutiert nicht.</p>
 
@@ -350,7 +366,9 @@ const TYPES = {
     einstieg: "„Ich mach's kurz: Noah von der HORBACH Lehrerberatung. Sie hatten sich bei unserer Aktion eingetragen – zwei Minuten, dann wissen Sie, ob's für Sie relevant ist.“",
     qualifizierung: [
       "„Kurz zur Einordnung: Wie lange sind Sie schon im Schuldienst, und sind Sie verbeamtet?“",
-      "„Alles klar, dann kennen Sie das System schon gut.“"
+      "„Alles klar, dann kennen Sie das System schon gut.“",
+      "„Verbeamtet auf Lebenszeit, auf Probe, oder noch im Ref?“",
+      "„Und DU und PKV gleich zum Ref-Start abgeschlossen, oder noch offen?“"
     ],
     absicherung: {
       grundfrage: [
@@ -383,7 +401,9 @@ const TYPES = {
     einstieg: "„Hallo, hier spricht Noah von der HORBACH Lehrerberatung – schön, Sie zu erreichen! Sagt Ihnen das noch was, Sie hatten sich bei unserer Aktion für Lehrkräfte gemeldet?“",
     qualifizierung: [
       "„Erzählen Sie doch mal – wie sind Sie eigentlich Lehrer/in geworden, und was gefällt Ihnen daran am meisten?“",
-      "„Schön zu hören! Sind Sie inzwischen verbeamtet?“"
+      "„Schön zu hören! Sind Sie inzwischen verbeamtet?“",
+      "„Sag mal, sind Sie schon verbeamtet auf Lebenszeit, auf Probe, oder noch mittendrin im Ref?“",
+      "„Und die Themen DU und PKV – gleich am Anfang vom Ref geregelt, oder noch auf der To-do-Liste?“"
     ],
     absicherung: {
       grundfrage: [
@@ -416,7 +436,9 @@ const TYPES = {
     einstieg: "„Hallo, hier spricht Noah von der HORBACH Lehrerberatung. Wie geht es Ihnen gerade – haben Sie kurz einen ruhigen Moment? Sie hatten sich bei einer unserer Aktionen für Lehrkräfte eingetragen.“",
     qualifizierung: [
       "„Darf ich fragen, wie lange Sie schon im Schuldienst sind und an welcher Schulart Sie unterrichten?“",
-      "„Und – macht Ihnen der Beruf aktuell Freude?“"
+      "„Und – macht Ihnen der Beruf aktuell Freude?“",
+      "„Darf ich fragen: Sind Sie schon verbeamtet auf Lebenszeit, auf Probe, oder befinden Sie sich noch im Vorbereitungsdienst?“",
+      "„Und ganz in Ruhe gefragt: Wurden DU und PKV schon zu Beginn des Referendariats geregelt, oder ist das noch offen?“"
     ],
     absicherung: {
       grundfrage: [
@@ -449,7 +471,9 @@ const TYPES = {
     einstieg: "„Guten Tag, hier spricht Noah von der HORBACH Lehrerberatung. Sie hatten sich bei unserer Aktion für kostenfreie Beratungsgespräche für Lehrkräfte eingetragen – ich möchte kurz prüfen, ob aktuell konkreter Bedarf besteht.“",
     qualifizierung: [
       "„Zur Einordnung: Wie viele Dienstjahre haben Sie bereits, und an welcher Schulform unterrichten Sie?“",
-      "„Sind Sie bereits verbeamtet, und falls ja, auf Lebenszeit?“"
+      "„Sind Sie bereits verbeamtet, und falls ja, auf Lebenszeit?“",
+      "„Zur Einordnung: Sind Sie verbeamtet auf Lebenszeit, auf Probe, oder befinden Sie sich aktuell im Vorbereitungsdienst?“",
+      "„Wurden DU und PKV direkt zum Referendariatsstart abgeschlossen – oder nach welchem Zeitplan sind Sie da vorgegangen?“"
     ],
     absicherung: {
       grundfrage: [
@@ -515,6 +539,7 @@ function renderType(key){
   html += `<h3><span class="step-badge">4</span> Pension</h3>`;
   html += `<div class="pnl problem"><span class="label">Problem</span><p>${t.pension}</p></div>`;
   html += `<span class="hebel">🎯 Hebel: A13 / Pensionierung</span>`;
+  html += `<div class="hint"><b>💬 Analogie – Schwimmbecken:</b> „Viele wissen gar nicht, wie ihre Pension später ausfallen wird. Ich vergleiche das gerne mit einem Schwimmbecken: Sie würden ja auch nicht hineinspringen, wenn Sie nicht wissen, wie tief das Wasser ist, oder? Genau deshalb haben wir unseren Pensionsrechner entwickelt.“</div>`;
 
   html += `<h3><span class="step-badge">5</span> Steuerliche Auswirkungen im Ruhestand</h3>`;
   html += `<div class="pnl problem"><span class="label">Problem</span><p>${t.steuer}</p></div>`;
@@ -523,6 +548,7 @@ function renderType(key){
   html += `<h3><span class="step-badge">6</span> Pensionsrechner</h3>`;
   html += `<div class="pnl nutzen"><span class="label">Nutzen</span><p>${t.pensionsrechner}</p></div>`;
   html += `<div class="hint"><b>💻 Technologie:</b> Unser Pensionsrechner wurde in Zusammenarbeit mit Entwicklern von Lenovo entwickelt und bezieht Inflation sowie Elternzeiten exakt in die Berechnung mit ein.</div>`;
+  html += `<div class="hint"><b>💬 Analogie-Abschluss:</b> „Nach der Berechnung wissen Sie genau, wie voll Ihr Schwimmbecken in Zukunft sein wird – und ob wir es noch auffüllen müssen, oder ob im besten Fall schon alles passt und wir einen mentalen Grünhaken dahinter machen können.“</div>`;
   html += `<div class="pnl loesung"><span class="label">Lösung: Zwischen-Check</span><p>${t.pensionsrechnerClose}</p></div>`;
 
   html += `<h3><span class="step-badge">7</span> Förderungen, Zulagen & Steuervorteile</h3>`;
